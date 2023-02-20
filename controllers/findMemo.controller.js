@@ -1,18 +1,11 @@
 const axios = require('axios');
+const information = require('../const/information');
 const tokenBOModel = require('../models/tokenBO.model');
 
 module.exports = {
     findMemo: (req, res) => {
-        let config = {
-            method: 'get',
-            url: 'https://api.shbet.ski/get-token-bo',
-        };
-          
-        axios(config)
-        .then(function (response) {
-            return response.data
-        })
-        .then(function (result) {
+        let getToken = tokenBOModel.findOne({Account: information.usernameBO}).exec()
+        if(getToken) {
             let {...body} = req.body
             try {
                 let data = {
@@ -35,10 +28,10 @@ module.exports = {
                     maxBodyLength: Infinity,
                     url: 'https://management.cdn-dysxb.com/api/1.0/transactions/query',
                     headers: { 
-                        'authorization': 'Bearer '+ result.Token, 
+                        'authorization': 'Bearer '+ getToken.Token, 
                         'content-type': ' application/json;charset=utf-8', 
-                        'origin': ' http://gnl.jdtmb.com', 
-                        'referer': ' http://gnl.jdtmb.com/', 
+                        'origin': ' '+information.linkBO, 
+                        'referer': ' '+information.linkBO+'/',
                         'x-requested-with': ' XMLHttpRequest'
                     },
                     data : data
@@ -80,12 +73,17 @@ module.exports = {
                     err: error
                 })
             }
-        })
-        
+        } else {
+            res.json({
+                code: 502,
+                mess: "Bad Gateway",
+                err: error
+            })
+        }        
     },
 
     findMemoClient: async(playerID, timeBegin, memo) => {
-        let getToken = await tokenBOModel.findOne({Account: 'vinit'}).exec()
+        let getToken = await tokenBOModel.findOne({Account: information.usernameBO}).exec()
         if(getToken) {
             try {
                 let data = {
@@ -110,8 +108,8 @@ module.exports = {
                     headers: { 
                         'authorization': 'Bearer '+ getToken.Token, 
                         'content-type': ' application/json;charset=utf-8', 
-                        'origin': ' http://gnl.jdtmb.com', 
-                        'referer': ' http://gnl.jdtmb.com/', 
+                        'origin': ' '+information.linkBO, 
+                        'referer': ' '+information.linkBO+'/',
                         'x-requested-with': ' XMLHttpRequest'
                     },
                     data : data

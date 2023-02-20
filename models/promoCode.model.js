@@ -5,10 +5,11 @@ const promoCode = mongoose.Schema({
     site: String,
     promo_id: String,
     promo_code: String,
-    point: String,
+    point: Number,
     user_used: String,
     exp_code: Number,
     used_time: Number,
+    round: Number,
     ip: String,
     fp: String
 })

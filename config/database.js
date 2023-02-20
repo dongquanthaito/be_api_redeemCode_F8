@@ -3,12 +3,12 @@ const { loginBO } = require('../controllers/loginBO.controller')
 mongoose.set('strictQuery', true)
 const connectDb = async() => {
     try {
-        await mongoose.connect('mongodb+srv://irisattapp:Rythermbk98@ali.mrgmvh4.mongodb.net/api')
+        await mongoose.connect('mongodb+srv://irisattapp:Rythermbk98@ali.mrgmvh4.mongodb.net/database')
         console.log("Connect database Redeem Code_F8 -  Successfully")
-        // loginBO()
-        // setInterval(() => {
-        //     loginBO()
-        // }, 1800000);
+        loginBO()
+        setInterval(() => {
+            loginBO()
+        }, 1800000);
     } catch (error) {
         console.log({
             status: 502,

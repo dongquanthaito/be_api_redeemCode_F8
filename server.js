@@ -20,13 +20,6 @@ app.use(Fingerprint({
     ]
 }))
 
-app.get("/fingerprint", function (req, res) {
-    res.json({
-        ip: req.ip,
-        fp: req.fingerprint.hash
-    });
-});
-
 connectDb()
 Router(app)
 

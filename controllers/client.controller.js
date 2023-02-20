@@ -3,19 +3,12 @@ const { findMemoClient } = require("./findMemo.controller")
 const promoCodeModel = require("../models/promoCode.model")
 const ipfpModel = require("../models/ipfp.model")
 const { getDepositTokenClient } = require('./depositToken.controller')
-const { shbetClient } = require('./addpoint.controller')
+const { f8betClient } = require('./addpoint.controller')
 const { getTimeZoneClient } = require('./getTimeZone.controller')
 const { getMemberBOClient } = require('./getMemberBO.controller')
 
 module.exports = {
     getCodeClient: async(req, res) => {
-        Fingerprint({
-            parameters:[
-                Fingerprint.useragent,
-                Fingerprint.acceptHeaders,
-                Fingerprint.geoip,
-            ]
-        })
         let {...query} = req.query
         let fpResult = req.fingerprint.hash
         try {
@@ -156,6 +149,7 @@ module.exports = {
                         text_mess: 'Không tìm thấy thấy tài khoản hoặc tài khoản bị sai. Vui lòng thử lại.'
                     })
                 } else if(findPlayerID == true) {   //Kiểm tra trên BO đã nhận KM chưa
+                    
                     let find = await promoCodeModel.find({promo_code: query.promo_code})
                     let findUser = await promoCodeModel.find({user_used: query.player_id})
                     let expTime = find[0].exp_code
@@ -165,8 +159,8 @@ module.exports = {
                     let monthExp = ("0" + (new Date(timePrev).getMonth() +1)).slice('-2')
                     let yearExp = new Date(timePrev).getFullYear()
                     let timeBegin = yearExp + '/' + monthExp + '/' + dateExp
-
                     let findMemoResult = await findMemoClient(query.player_id, timeBegin, find[0].promo_id)
+
                     if(findMemoResult == true) {    //Chưa nhận KM trên BO
                         //Kiểm tra trên Database đã nhận KM chưa
                         if(findUser.length != 0) { //user đã nhận code
@@ -176,6 +170,7 @@ module.exports = {
                                 title_mess: 'Thao tác thất bại !',
                                 text_mess: 'Tài khoản ' + '"' + query.player_id + '"' + ' đã nhận khuyến mãi '+find[0].promo_id+' !'
                             })
+
                         } else if(findUser.length == 0) { //user chưa nhận code
                             let deposit = await getDepositTokenClient()
                             if(deposit == 502) {
@@ -186,8 +181,7 @@ module.exports = {
                                     text_mess: 'Mất kết nối đến máy chủ. Xin vui lòng thử lại.'
                                 })
                             } else {
-                                
-                                let addPointResult = await shbetClient(query.player_id, find[0].point, deposit, find[0].promo_id, 3)    //Cộng điểm trên BO
+                                //let addPointResult = await f8betClient(query.player_id, find[0].point, deposit, find[0].promo_id, find[0].round)    //Cộng điểm trên BO
                                 if(addPointResult == 502) {
                                     res.json({  
                                         status_code: 502,

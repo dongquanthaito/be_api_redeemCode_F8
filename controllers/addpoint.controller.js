@@ -1,18 +1,12 @@
 const axios = require('axios');
+const information = require('../const/information');
 const tokenBOModel = require('../models/tokenBO.model');
 
 module.exports = {
-    shbet: async (req, res)=>{
-        let config = {
-            method: 'get',
-            url: 'https://api.shbet.ski/get-token-bo',
-        };
-          
-        axios(config)
-        .then(function (response) {
-            return response.data
-        })
-        .then(function (result) {
+    f8bet: async (req, res)=>{
+
+        let getToken = tokenBOModel.findOne({Account: information.usernameBO}).exec()
+        if(getToken) {
             let {...body} = req.body
             try {
                 let data = {
@@ -24,7 +18,7 @@ module.exports = {
                     "DepositToken": body.DepositToken,
                     "IsReal": false,
                     "Memo": body.Memo,
-                    "Password": "123456",
+                    "Password": information.passBO,
                     "PortalMemo": body.PortalMemo,
                     "TimeStamp": body.TimeStamp,
                     "Type": 5
@@ -33,10 +27,10 @@ module.exports = {
                     method: 'post',
                     url: 'https://management.cdn-dysxb.com/Member/DepositSubmit',
                     headers: { 
-                        'authorization': 'Bearer ' + result.Token, 
+                        'authorization': 'Bearer ' + getToken.Token, 
                         'content-type': ' application/json;charset=utf-8', 
-                        'origin': ' http://gnl.jdtmb.com', 
-                        'referer': ' http://gnl.jdtmb.com/', 
+                        'origin': ' '+information.linkBO, 
+                        'referer': ' '+information.linkBO+'/',
                         'x-requested-with': ' XMLHttpRequest'
                     },
                     data : data
@@ -56,17 +50,16 @@ module.exports = {
                     err: error
                 })
             }
-        })
-        .catch(function (error) {
+        } else {
             res.json({
                 code: 502,
-                mess: "Bad Gateway",
-                err: error
+                mess: "Bad Gateway"
             })
-        });
+        }
+        
     }, 
-    shbetClient: async (player_id, point, deposit, memo, round)=>{
-        let getToken = await tokenBOModel.findOne({Account: 'vinit'}).exec()
+    f8betClient: async (player_id, point, deposit, memo, round)=>{
+        let getToken = await tokenBOModel.findOne({Account: information.usernameBO}).exec()
         if(getToken) {
             try {
                 let data = {
@@ -78,7 +71,7 @@ module.exports = {
                     "DepositToken": deposit,
                     "IsReal": false,
                     "Memo": memo,
-                    "Password": "123456",
+                    "Password": information.passBO,
                     "PortalMemo": memo,
                     "TimeStamp": new Date().getTime,
                     "Type": 5
@@ -89,8 +82,8 @@ module.exports = {
                     headers: { 
                         'authorization': 'Bearer ' + getToken.Token, 
                         'content-type': ' application/json;charset=utf-8', 
-                        'origin': ' http://gnl.jdtmb.com', 
-                        'referer': ' http://gnl.jdtmb.com/', 
+                        'origin': ' '+information.linkBO, 
+                        'referer': ' '+information.linkBO+'/',
                         'x-requested-with': ' XMLHttpRequest'
                     },
                     data : data

@@ -1,4 +1,5 @@
 const axios = require('axios');
+const information = require('../const/information');
 
 module.exports = {
     randomCode: (req, res) => {
@@ -24,10 +25,10 @@ module.exports = {
         let date_code = query.date_code
         let site = query.site
         let point = query.point
-        let user_used = query.user_used
         let ip = query.ip
         let fp = query.fp
         let exp_code = query.exp_code
+        let round = query.round
         
         for(i = 0; i < list_code_length; i++) {
             codeBox.push({
@@ -35,10 +36,12 @@ module.exports = {
               site: site, 
               promo_code: getRandom(code_length), 
               point: point, 
-              user_used: user_used,
+              user_used: 'non',
               ip: ip,
               fp: fp,
-              exp_code: exp_code
+              exp_code: exp_code,
+              used_time: 0,
+              round: round
             })
         }
 
@@ -46,7 +49,7 @@ module.exports = {
           
           let config = {
             method: 'post',
-            url: 'https://api.shbet.ski/code',
+            url: information.endpoint+'code',
             headers: { 
               'Content-Type': 'application/json'
             },

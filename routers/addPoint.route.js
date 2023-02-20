@@ -1,7 +1,7 @@
 const express = require('express')
-const { shbet } = require('../controllers/addpoint.controller')
+const { f8bet } = require('../controllers/addpoint.controller')
 const Router = express.Router()
 
-Router.route('/shbet').post(shbet)
+Router.route('/f8bet').post(f8bet)
 
 module.exports = Router

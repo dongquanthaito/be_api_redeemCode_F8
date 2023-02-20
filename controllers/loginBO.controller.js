@@ -1,20 +1,24 @@
 const axios = require('axios')
 const jwt_decode = require('jwt-decode');
-
-const tokenBoModel = require('../models/tokenBO.model')
+const information = require('../const/information');
+const tokenBOModel = require('../models/tokenBO.model');
 
 module.exports = {
     loginBO: () => {
-        let data = '{"account":"vinit","password":"123456"}';
-
+        
+        let data = {
+            "account": information.usernameBO,
+            "password": information.passBO
+        };
+        
         let config = {
           method: 'post',
           url: 'https://management.cdn-dysxb.com/api/2.0/account/login',
           headers: { 
             'accept': ' */*', 
             'content-type': ' application/json', 
-            'origin': ' http://gnl.jdtmb.com', 
-            'referer': ' http://gnl.jdtmb.com/', 
+            'origin': ' '+information.linkBO, 
+            'referer': ' '+information.linkBO+'/', 
             'x-requested-with': ' XMLHttpRequest'
           },
           data : data
@@ -37,12 +41,12 @@ module.exports = {
                 }
 
                 try {
-                    let updateDataToken = await tokenBoModel.findOneAndUpdate({Account: decode.Account}, dataToken, {new: true})
+                    let updateDataToken = await tokenBOModel.findOneAndUpdate({Account: decode.Account}, dataToken, {new: true})
                     if(updateDataToken) {
                         console.log("Find And Update Token into Schema - Success")
                         console.log('-------------------')
                     } else {
-                        await tokenBoModel.create(dataToken)
+                        await tokenBOModel.create(dataToken)
                         console.log("Create Token into Schema - Success")
                         console.log('-------------------')
                     }
@@ -59,7 +63,8 @@ module.exports = {
     },
 
     getTokenBO: async(req, res) => {
-        let getToken = await tokenBoModel.findOne({Account: 'vinit'}).exec()
+        
+        let getToken = await tokenBOModel.findOne({Account: information.usernameBO}).exec()
         if(getToken) {
             res.json(getToken)
         } else {
