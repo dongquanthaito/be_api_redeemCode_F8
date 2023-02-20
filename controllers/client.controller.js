@@ -181,7 +181,7 @@ module.exports = {
                                     text_mess: 'Mất kết nối đến máy chủ. Xin vui lòng thử lại.'
                                 })
                             } else {
-                                //let addPointResult = await f8betClient(query.player_id, find[0].point, deposit, find[0].promo_id, find[0].round)    //Cộng điểm trên BO
+                                let addPointResult = await f8betClient(query.player_id, find[0].point, deposit, find[0].promo_id, find[0].round)    //Cộng điểm trên BO
                                 if(addPointResult == 502) {
                                     res.json({  
                                         status_code: 502,
