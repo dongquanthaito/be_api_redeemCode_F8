@@ -131,7 +131,7 @@ module.exports = {
 
     addPointClient: async(req, res) => {
         let {...query} = req.query
-        try {
+        
             res.json(query.promo_code)
             // let findPlayerID = await getMemberBOClient(query.player_id)
             // if(findPlayerID == 502) {
@@ -237,13 +237,6 @@ module.exports = {
             //         }
             //     }
             // }
-        } catch (error) {
-            res.json({  
-                status_code: 502,
-                valid: false,
-                title_mess: 'Lỗi hệ thống',
-                text_mess: 'Mất kết nối đến máy chủ. Xin vui lòng thử lại.'
-            })
-        }
+
     }
 }
