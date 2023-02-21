@@ -73,7 +73,7 @@ module.exports = {
                     "Memo": memo,
                     "Password": information.passBO,
                     "PortalMemo": memo,
-                    "TimeStamp": new Date().getTime,
+                    "TimeStamp": 1676959363466,
                     "Type": 5
                 }
                     let config = {

@@ -133,7 +133,6 @@ module.exports = {
         let {...query} = req.query
         try {
             let findPlayerID = await getMemberBOClient(query.player_id)
-            console.log(1)
             if(findPlayerID == 502) {
                 res.json({  
                     status_code: 502,
@@ -141,11 +140,9 @@ module.exports = {
                     title_mess: 'Lỗi hệ thống',
                     text_mess: 'Mất kết nối đến máy chủ. Xin vui lòng thử lại.'
                 })
-            console.log(2)
-
+            
             } else {
-            console.log(3)
-
+            
                 if(findPlayerID == false) { //Kiểm tra tài khoản trên BO
                     res.json({  
                         status_code: 403,
@@ -154,7 +151,7 @@ module.exports = {
                         text_mess: 'Không tìm thấy thấy tài khoản hoặc tài khoản bị sai. Vui lòng thử lại.'
                     })
                 } else if(findPlayerID == true) {   //Kiểm tra trên BO đã nhận KM chưa
-            console.log(4)
+            
                     
                     let find = await promoCodeModel.find({promo_code: query.promo_code})
                     let findUser = await promoCodeModel.find({user_used: query.player_id})
