@@ -130,113 +130,122 @@ module.exports = {
     },
 
     addPointClient: async(req, res) => {
-        let {...query} = req.query
-        
-            res.json(query.promo_code)
-            // let findPlayerID = await getMemberBOClient(query.player_id)
-            // if(findPlayerID == 502) {
-            //     res.json({  
-            //         status_code: 502,
-            //         valid: false,
-            //         title_mess: 'Lỗi hệ thống',
-            //         text_mess: 'Mất kết nối đến máy chủ. Xin vui lòng thử lại.'
-            //     })
+        res.json('abc')
+        // let {...query} = req.query
+        // try {
+        //     let findPlayerID = await getMemberBOClient(query.player_id)
             
-            // } else {
+        //     if(findPlayerID == 502) {
+        //         res.json({  
+        //             status_code: 502,
+        //             valid: false,
+        //             title_mess: 'Lỗi hệ thống',
+        //             text_mess: 'Mất kết nối đến máy chủ. Xin vui lòng thử lại.'
+        //         })
             
-            //     if(findPlayerID == false) { //Kiểm tra tài khoản trên BO
-            //         res.json({  
-            //             status_code: 403,
-            //             valid: false,
-            //             title_mess: 'Thao tác thất bại !',
-            //             text_mess: 'Không tìm thấy thấy tài khoản hoặc tài khoản bị sai. Vui lòng thử lại.'
-            //         })
-            //     } else if(findPlayerID == true) {   //Kiểm tra trên BO đã nhận KM chưa
+
+        //     } else {
+            
+        //         if(findPlayerID == false) { //Kiểm tra tài khoản trên BO
+        //             res.json({  
+        //                 status_code: 403,
+        //                 valid: false,
+        //                 title_mess: 'Thao tác thất bại !',
+        //                 text_mess: 'Không tìm thấy thấy tài khoản hoặc tài khoản bị sai. Vui lòng thử lại.'
+        //             })
+        //         } else if(findPlayerID == true) {   //Kiểm tra trên BO đã nhận KM chưa
             
                     
-            //         let find = await promoCodeModel.find({promo_code: query.promo_code})
-            //         let findUser = await promoCodeModel.find({user_used: query.player_id})
-            //         let expTime = find[0].exp_code
+        //             let find = await promoCodeModel.find({promo_code: query.promo_code})
+        //             let findUser = await promoCodeModel.find({user_used: query.player_id})
+        //             let expTime = find[0].exp_code
 
-            //         let timePrev = (expTime - (86400000 * 30))
-            //         let dateExp = ("0" + (new Date(timePrev).getDate())).slice('-2')
-            //         let monthExp = ("0" + (new Date(timePrev).getMonth() +1)).slice('-2')
-            //         let yearExp = new Date(timePrev).getFullYear()
-            //         let timeBegin = yearExp + '/' + monthExp + '/' + dateExp
-            //         let findMemoResult = await findMemoClient(query.player_id, timeBegin, find[0].promo_id)
+        //             let timePrev = (expTime - (86400000 * 30))
+        //             let dateExp = ("0" + (new Date(timePrev).getDate())).slice('-2')
+        //             let monthExp = ("0" + (new Date(timePrev).getMonth() +1)).slice('-2')
+        //             let yearExp = new Date(timePrev).getFullYear()
+        //             let timeBegin = yearExp + '/' + monthExp + '/' + dateExp
+        //             let findMemoResult = await findMemoClient(query.player_id, timeBegin, find[0].promo_id)
 
-            //         if(findMemoResult == true) {    //Chưa nhận KM trên BO
-            //             //Kiểm tra trên Database đã nhận KM chưa
-            //             if(findUser.length != 0) { //user đã nhận code
-            //                 res.json({  
-            //                     status_code: 403,
-            //                     valid: false,
-            //                     title_mess: 'Thao tác thất bại !',
-            //                     text_mess: 'Tài khoản ' + '"' + query.player_id + '"' + ' đã nhận khuyến mãi '+find[0].promo_id+' !'
-            //                 })
+        //             if(findMemoResult == true) {    //Chưa nhận KM trên BO
+        //                 //Kiểm tra trên Database đã nhận KM chưa
+        //                 if(findUser.length != 0) { //user đã nhận code
+        //                     res.json({  
+        //                         status_code: 403,
+        //                         valid: false,
+        //                         title_mess: 'Thao tác thất bại !',
+        //                         text_mess: 'Tài khoản ' + '"' + query.player_id + '"' + ' đã nhận khuyến mãi '+find[0].promo_id+' !'
+        //                     })
 
-            //             } else if(findUser.length == 0) { //user chưa nhận code
-            //                 let deposit = await getDepositTokenClient()
-            //                 if(deposit == 502) {
-            //                     res.json({  
-            //                         status_code: 502,
-            //                         valid: false,
-            //                         title_mess: 'Lỗi hệ thống',
-            //                         text_mess: 'Mất kết nối đến máy chủ. Xin vui lòng thử lại.'
-            //                     })
-            //                 } else {
-            //                     let addPointResult = await f8betClient(query.player_id, find[0].point, deposit, find[0].promo_id, find[0].round)    //Cộng điểm trên BO
-            //                     if(addPointResult == 502) {
-            //                         res.json({  
-            //                             status_code: 502,
-            //                             valid: false,
-            //                             title_mess: 'Lỗi hệ thống',
-            //                             text_mess: 'Mất kết nối đến máy chủ. Xin vui lòng thử lại.'
-            //                         })
-            //                     } else {
-            //                         let timeGlobal = await getTimeZoneClient()
-            //                         let timeStamp = new Date(timeGlobal.dateTime).getTime()
+        //                 } else if(findUser.length == 0) { //user chưa nhận code
+        //                     let deposit = await getDepositTokenClient()
+        //                     if(deposit == 502) {
+        //                         res.json({  
+        //                             status_code: 502,
+        //                             valid: false,
+        //                             title_mess: 'Lỗi hệ thống',
+        //                             text_mess: 'Mất kết nối đến máy chủ. Xin vui lòng thử lại.'
+        //                         })
+        //                     } else {
+        //                         let addPointResult = await f8betClient(query.player_id, find[0].point, deposit, find[0].promo_id, find[0].round)    //Cộng điểm trên BO
+        //                         if(addPointResult == 502) {
+        //                             res.json({  
+        //                                 status_code: 502,
+        //                                 valid: false,
+        //                                 title_mess: 'Lỗi hệ thống',
+        //                                 text_mess: 'Mất kết nối đến máy chủ. Xin vui lòng thử lại.'
+        //                             })
+        //                         } else {
+        //                             let timeGlobal = await getTimeZoneClient()
+        //                             let timeStamp = new Date(timeGlobal.dateTime).getTime()
 
-            //                         let ipResult = req.ip
-            //                         let fpResult = req.fingerprint.hash                                    
+        //                             let ipResult = req.ip
+        //                             let fpResult = req.fingerprint.hash                                    
                                     
-            //                         let body = ({
-            //                             promo_code: query.promo_code,
-            //                             user_used: query.player_id,
-            //                             used_time: timeStamp,
-            //                             ip: ipResult,
-            //                             fp: fpResult
-            //                         })
-            //                         let update = await promoCodeModel.updateMany({promo_code: query.promo_code}, body)
-            //                         if(update) {
+        //                             let body = ({
+        //                                 promo_code: query.promo_code,
+        //                                 user_used: query.player_id,
+        //                                 used_time: timeStamp,
+        //                                 ip: ipResult,
+        //                                 fp: fpResult
+        //                             })
+        //                             let update = await promoCodeModel.updateMany({promo_code: query.promo_code}, body)
+        //                             if(update) {
                                         
-            //                             let add = await ipfpModel.create({
-            //                                 ip: ipResult,
-            //                                 fp: fpResult
-            //                             })
-            //                             if(add) {
-            //                                 res.json({
-            //                                     status_code: 200,
-            //                                     valid: true,
-            //                                     status_mess: 'Done',
-            //                                     player_id: query.player_id,
-            //                                     point: find[0].point
-            //                                 })
-            //                             }
-            //                         }
-            //                     }
-            //                 }
-            //             }
-            //         } else if(findMemoResult == false){
-            //             res.json({  
-            //                 status_code: 403,
-            //                 valid: false,
-            //                 title_mess: 'Thao tác thất bại !',
-            //                 text_mess: 'Tài khoản ' + '"' + query.player_id + '"' + ' đã nhận khuyến mãi '+find[0].promo_id+' !'
-            //             })
-            //         }
-            //     }
-            // }
-
+        //                                 let add = await ipfpModel.create({
+        //                                     ip: ipResult,
+        //                                     fp: fpResult
+        //                                 })
+        //                                 if(add) {
+        //                                     res.json({
+        //                                         status_code: 200,
+        //                                         valid: true,
+        //                                         status_mess: 'Done',
+        //                                         player_id: query.player_id,
+        //                                         point: find[0].point
+        //                                     })
+        //                                 }
+        //                             }
+        //                         }
+        //                     }
+        //                 }
+        //             } else if(findMemoResult == false){
+        //                 res.json({  
+        //                     status_code: 403,
+        //                     valid: false,
+        //                     title_mess: 'Thao tác thất bại !',
+        //                     text_mess: 'Tài khoản ' + '"' + query.player_id + '"' + ' đã nhận khuyến mãi '+find[0].promo_id+' !'
+        //                 })
+        //             }
+        //         }
+        //     }
+        // } catch (error) {
+        //     res.json({  
+        //         status_code: 502,
+        //         valid: false,
+        //         title_mess: 'Lỗi hệ thống',
+        //         text_mess: 'Mất kết nối đến máy chủ. Xin vui lòng thử lại.'
+        //     })
+        // }
     }
 }
