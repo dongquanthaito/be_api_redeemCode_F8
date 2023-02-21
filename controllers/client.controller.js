@@ -132,8 +132,8 @@ module.exports = {
     addPointClient: async(req, res) => {
         let {...query} = req.query
         try {
-            let findPlayerID = await getMemberBOClient(query.player_id)
-            res.json({findPlayerID})
+            res.json(query.promo_code)
+            // let findPlayerID = await getMemberBOClient(query.player_id)
             // if(findPlayerID == 502) {
             //     res.json({  
             //         status_code: 502,
