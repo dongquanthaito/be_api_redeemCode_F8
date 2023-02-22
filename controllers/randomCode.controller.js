@@ -29,6 +29,7 @@ module.exports = {
         let fp = query.fp
         let exp_code = query.exp_code
         let round = query.round
+        let promo_id = query.promo_id
         
         for(i = 0; i < list_code_length; i++) {
             codeBox.push({
@@ -41,7 +42,8 @@ module.exports = {
               fp: fp,
               exp_code: exp_code,
               used_time: 0,
-              round: round
+              round: round,
+              promo_id: promo_id
             })
         }
 
